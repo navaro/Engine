@@ -7,12 +7,12 @@
 #include <getopt.h>
 #include "../src/starter.h"
 
-#define ENGINE_VERSION_STR		"Navaro Engine Demo v '" __DATE__ "'"
+#define ENGINE_VERSION_STR      "Navaro Engine Demo v '" __DATE__ "'"
 
 #define OPTION_ID_HELP              4
 #define OPTION_ID_VERBOSE           6
-#define OPTION_ID_LIST	            7
-#define OPTION_ID_CONFIG_FILE	    8
+#define OPTION_ID_LIST              7
+#define OPTION_ID_CONFIG_FILE       8
 #define OPTION_COMMENT_MAX          256
 
 struct option opt_parm[] = {
@@ -20,7 +20,7 @@ struct option opt_parm[] = {
     { "verbose",no_argument,0,OPTION_ID_VERBOSE },
     { "list",no_argument,0,OPTION_ID_LIST },
     { "config",required_argument,0,OPTION_ID_CONFIG_FILE },
-	{ 0,0,0,0 },
+    { 0,0,0,0 },
 };
 
 char *              opt_file = 0;
@@ -32,24 +32,24 @@ char *              opt_config_file = 0;
 void
 usage(char* comm)
 {
-	printf (
-		"usage:\n"
-		"  %s to compile and start an Engine Machine definition file.\n\n"
-		"  %s <file> [OPTIONS]\n"
-		"    <file>                Engine Machine definition file.\n"
-		"    --help                Shows this message.\n"
-		"    --verbose             Verbose output.\n"
-		"    --list                Lista all Actions, Events and Constants.\n"
-		"    --config              Configuration file or \"registry\" (default file.cfg).\n"
-		,
-		ENGINE_VERSION_STR,
-		comm);
-	exit (0);
+    printf (
+        "usage:\n"
+        "  %s to compile and start an Engine Machine definition file.\n\n"
+        "  %s <file> [OPTIONS]\n"
+        "    <file>                Engine Machine definition file.\n"
+        "    --help                Shows this message.\n"
+        "    --verbose             Verbose output.\n"
+        "    --list                Lista all Actions, Events and Constants.\n"
+        "    --config              Configuration file or \"registry\" (default file.cfg).\n"
+        ,
+        ENGINE_VERSION_STR,
+        comm);
+    exit (0);
 }
 
-static int32_t	out(void* ctx, uint32_t out, const char* str) ;
-static void		list(void* ctx, starter_list_t type, const char * name, const char* description) ;
-static char *	get_config_file(void) ;
+static int32_t  out(void* ctx, uint32_t out, const char* str) ;
+static void     list(void* ctx, starter_list_t type, const char * name, const char* description) ;
+static char *   get_config_file(void) ;
 
 
 int
@@ -84,8 +84,8 @@ main(int argc, char* argv[])
             break;
 
         case OPTION_ID_CONFIG_FILE:
-        	opt_config_file = optarg ;
-        	break ;
+            opt_config_file = optarg ;
+            break ;
 
          }
 
@@ -95,8 +95,8 @@ main(int argc, char* argv[])
         /*
          * Dump all parts loaded
          */
-    	starter_parts_list (0, list) ;
-    	if (!opt_file) return 0 ;
+        starter_parts_list (0, list) ;
+        if (!opt_file) return 0 ;
 
     }
 
@@ -145,13 +145,13 @@ main(int argc, char* argv[])
      free (buffer) ;
 
      if (res) {
-		/*
-		 * Starting Engine failed.
-		 */
-		printf("starting \"%s\" failed with %d\r\n\r\n",
-				opt_file, (int) res);
-		starter_stop () ;
-		return 0 ;
+        /*
+         * Starting Engine failed.
+         */
+        printf("starting \"%s\" failed with %d\r\n\r\n",
+                opt_file, (int) res);
+        starter_stop () ;
+        return 0 ;
 
      }
 
@@ -161,8 +161,8 @@ main(int argc, char* argv[])
       * console events.
       */
      do {
-    	 c = getchar() ;
-    	 ENGINE_EVENT_CONSOLE_CHAR(c) ;
+         c = getchar() ;
+         ENGINE_EVENT_CONSOLE_CHAR(c) ;
      } while (c != 'q') ;
 
 
@@ -174,56 +174,56 @@ main(int argc, char* argv[])
 static char *
 get_config_file (void)
 {
-	static char config_file[FILENAME_MAX+4] ;
-	memset (config_file, 0, FILENAME_MAX) ;
+    static char config_file[FILENAME_MAX+4] ;
+    memset (config_file, 0, FILENAME_MAX) ;
 
-	if (opt_config_file) {
-		strncpy(config_file, opt_config_file, FILENAME_MAX-1);
+    if (opt_config_file) {
+        strncpy(config_file, opt_config_file, FILENAME_MAX-1);
 
-	}
-	else if (opt_file) {
+    }
+    else if (opt_file) {
 
-		strncpy(config_file,opt_file,FILENAME_MAX-1);
+        strncpy(config_file,opt_file,FILENAME_MAX-1);
 
-	    char *end = config_file + strlen(config_file);
+        char *end = config_file + strlen(config_file);
 
-	    while (end > config_file && *end != '.') {
-	        --end;
-	    }
+        while (end > config_file && *end != '.') {
+            --end;
+        }
 
-	    if (end > config_file) {
-	        *end = '\0';
-	    }
+        if (end > config_file) {
+            *end = '\0';
+        }
 
-	    strcat (config_file, ".cfg") ;
+        strcat (config_file, ".cfg") ;
 
 
-	}
+    }
 
-	return (char*) config_file ;
+    return (char*) config_file ;
 }
 
 static void
 list(void* ctx, starter_list_t type, const char * name, const char* description)
 {
-	static starter_list_t t = typeNone ;
-	if (t != type) {
-		t = type ;
-		const char * type_names[] = {"", "Actions", "Events", "Constatnts" } ;
-		printf("%s:\r\n", type_names[t]) ;
+    static starter_list_t t = typeNone ;
+    if (t != type) {
+        t = type ;
+        const char * type_names[] = {"", "Actions", "Events", "Constatnts" } ;
+        printf("%s:\r\n", type_names[t]) ;
 
-	}
+    }
 
-	printf ("    %-24s %s\r\n", name, description) ;
+    printf ("    %-24s %s\r\n", name, description) ;
 }
 
 static int32_t
 out(void* ctx, uint32_t out, const char* str)
 {
-	printf ("%s", str) ;
-	size_t len = strlen(str) ;
-	if (str[len-1] != '\n') printf ("\r\n") ;
+    printf ("%s", str) ;
+    size_t len = strlen(str) ;
+    if (str[len-1] != '\n') printf ("\r\n") ;
 
-	return 0 ;
+    return 0 ;
 }
 

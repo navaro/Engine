@@ -251,19 +251,19 @@ enum LexToken LexGetWord(struct LexState *Lexer, struct Value *Value)
     //    Token = TokenIdentifier ;
     //}
     if(Lexer->cb->GetReservedWord &&
-    		!Lexer->cb->GetReservedWord (Lexer, StartPos, Lexer->Pos - StartPos, &Token)) {
-    	if (Lexer->cb->GetIdentifier) res = Lexer->cb->GetIdentifier(Lexer, StartPos, Lexer->Pos - StartPos, Value) ;
+            !Lexer->cb->GetReservedWord (Lexer, StartPos, Lexer->Pos - StartPos, &Token)) {
+        if (Lexer->cb->GetIdentifier) res = Lexer->cb->GetIdentifier(Lexer, StartPos, Lexer->Pos - StartPos, Value) ;
         if (res <= 0) {
-        	switch (res) {
-        	case ErrorSyntax: 		err = "Syntax"; break ;
-        	case ErrorUndeclared: 	err = "Undeclared"; break ;
-        	case ErrorParser:		err = "Parser"; break ;
-        	case ErrorMemory:		err = "Memory"; break ;
-        	case ErrorUnexpected:	err = "Unexpected"; break ;
-        	case ErrorRedeclared:	err = "Redeclared"; break ;
-        	default: 				err = "Abort"; break ;
+            switch (res) {
+            case ErrorSyntax:       err = "Syntax"; break ;
+            case ErrorUndeclared:   err = "Undeclared"; break ;
+            case ErrorParser:       err = "Parser"; break ;
+            case ErrorMemory:       err = "Memory"; break ;
+            case ErrorUnexpected:   err = "Unexpected"; break ;
+            case ErrorRedeclared:   err = "Redeclared"; break ;
+            default:                err = "Abort"; break ;
 
-        	}
+            }
             if (Lexer->cb->Error) Lexer->cb->Error(Lexer, res, err);
             return TokenError ;
         }
@@ -381,7 +381,7 @@ enum LexToken LexGetStringConstant(struct LexState *Lexer, struct Value *Value, 
     /* try to find an existing copy of this string literal */
     //if (!__LexGetString (Lexer, EscBuf, EscBufPos - EscBuf, Value) ) {
     if (Lexer->cb->GetString &&
-    		!Lexer->cb->GetString (Lexer, EscBuf, EscBufPos - EscBuf, Value) ) {
+            !Lexer->cb->GetString (Lexer, EscBuf, EscBufPos - EscBuf, Value) ) {
         LEX_FREE (EscBuf) ;
         if (Lexer->cb->Error) Lexer->cb->Error(Lexer, ErrorMemory, "out of memory");
         return TokenError ;
@@ -417,7 +417,7 @@ enum LexToken LexGetIndexConstant(struct LexState *Lexer, struct Value *Value)
 
 
     if (Lexer->cb->GetIndex &&
-    		!Lexer->cb->GetIndex (Lexer, tok, StartPos, EndPos - StartPos, Value) ) {
+            !Lexer->cb->GetIndex (Lexer, tok, StartPos, EndPos - StartPos, Value) ) {
         if (Lexer->cb->Error) Lexer->cb->Error(Lexer, ErrorSyntax, "identifier or index expected");
         return TokenError ;
 
@@ -448,7 +448,7 @@ enum LexToken LexGetIndexString(struct LexState *Lexer, struct Value *Value)
     EndPos = Lexer->Pos;
 
     if (Lexer->cb->GetIndex &&
-    		!Lexer->cb->GetIndex (Lexer, tok, StartPos, EndPos - StartPos, Value) ) {
+            !Lexer->cb->GetIndex (Lexer, tok, StartPos, EndPos - StartPos, Value) ) {
         if (Lexer->cb->Error) Lexer->cb->Error(Lexer, ErrorMemory, "out of memory");
         return TokenError ;
 
@@ -591,9 +591,9 @@ enum LexToken LexScanGetToken(struct LexState *Lexer, struct Value *Value)
             case ':': GotToken = TokenColon; break;
             //default:  __LexError(Lexer, ErrorUnexpected, , Lexer->Line, "illegal character '%c'", ThisChar); break;
             default:
-            	if (Lexer->cb->Error) Lexer->cb->Error(Lexer, ErrorUnexpected, "illegal character");
-            	GotToken = TokenError ;
-            	break;
+                if (Lexer->cb->Error) Lexer->cb->Error(Lexer, ErrorUnexpected, "illegal character");
+                GotToken = TokenError ;
+                break;
         }
     } while (GotToken == TokenNone);
     
@@ -629,38 +629,38 @@ enum LexToken LexTokenise(struct LexState *Lexer)
         // printf ("{%s}\t%s\t0x%.4x\r\n", LexTokenName(Token), LexGetValue(&GotValue), GotValue.Id) ;
         //if ((status = __LexParseToken (Lexer, Token, &GotValue)) <= 0) {
         if (Lexer->cb->ParseToken &&
-        		(status = Lexer->cb->ParseToken (Lexer, Token, &GotValue)) <= 0) {
+                (status = Lexer->cb->ParseToken (Lexer, Token, &GotValue)) <= 0) {
            
             Token = TokenError ;
-			if (Lexer->cb->Error) {
-				switch (status) {
-				case ErrorAbort:
-					Lexer->cb->Error(Lexer, ErrorAbort, "abort");
-					break ;
-				case ErrorSyntax:
-					Lexer->cb->Error(Lexer, ErrorSyntax, "syntax error");
-					break ;
-				case ErrorUndeclared:
-				   Lexer->cb->Error(Lexer, ErrorUndeclared, "undeclared");
-				   break ;
-				case ErrorRedeclared:
-				   Lexer->cb->Error(Lexer, ErrorUndeclared, "redeclared");
-				   break ;
-				case ErrorParser:
-				   Lexer->cb->Error(Lexer, ErrorParser, "parser");
-				   break ;
-				case ErrorMemory:
-				   Lexer->cb->Error(Lexer, ErrorParser, "memory");
-				   break ;
-				case ErrorUnexpected:
-				   Lexer->cb->Error(Lexer, ErrorParser, "unexpected");
-				   break ;
-				default:
-					Lexer->cb->Error(Lexer, ErrorParser, "undefined");
-					break ;
+            if (Lexer->cb->Error) {
+                switch (status) {
+                case ErrorAbort:
+                    Lexer->cb->Error(Lexer, ErrorAbort, "abort");
+                    break ;
+                case ErrorSyntax:
+                    Lexer->cb->Error(Lexer, ErrorSyntax, "syntax error");
+                    break ;
+                case ErrorUndeclared:
+                   Lexer->cb->Error(Lexer, ErrorUndeclared, "undeclared");
+                   break ;
+                case ErrorRedeclared:
+                   Lexer->cb->Error(Lexer, ErrorUndeclared, "redeclared");
+                   break ;
+                case ErrorParser:
+                   Lexer->cb->Error(Lexer, ErrorParser, "parser");
+                   break ;
+                case ErrorMemory:
+                   Lexer->cb->Error(Lexer, ErrorParser, "memory");
+                   break ;
+                case ErrorUnexpected:
+                   Lexer->cb->Error(Lexer, ErrorParser, "unexpected");
+                   break ;
+                default:
+                    Lexer->cb->Error(Lexer, ErrorParser, "undefined");
+                    break ;
 
-				}
-			}
+                }
+            }
 
 
         }

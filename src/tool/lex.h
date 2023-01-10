@@ -22,8 +22,8 @@
 #define GETS_BUF_MAX 256
 
 
-#define LEX_MALLOC(size)						engine_port_malloc (heapParser, size) ;
-#define LEX_FREE(mem)							engine_port_free (heapParser, mem) ;
+#define LEX_MALLOC(size)                        engine_port_malloc (heapParser, size) ;
+#define LEX_FREE(mem)                           engine_port_free (heapParser, mem) ;
 
 enum LexError
 {
@@ -69,38 +69,38 @@ enum LexToken
     /* 0x59 */ TokenNew, TokenDelete,
     /* 0x5b */ TokenOpenMacroBracket,
 #endif
-	/* 0x00 */ TokenIndexConstant, /* TokenIndexString, */
+    /* 0x00 */ TokenIndexConstant, /* TokenIndexString, */
     /* 0x00 */ TokenEOF, TokenEndOfLine, TokenEndOfFunction,
 #if 0
     /* 0x00 */ TokenEvents, TokenStatemachine, TokenState, TokenDefaultState, TokenEnter, TokenEvent, TokenExit,  TokenDeferred, TokenPrevious,
 #endif
     /* 0x00 */ TokenError,
-	//
-    TokenEvents,		\
-    TokenVariables,		\
-    TokenVersion,		\
-    TokenName,			\
-	TokenStartup,		\
-    TokenStatemachine,	\
-    TokenState,			\
-    TokenSuperState,	\
-    TokenDefaultState,	\
-    TokenEnter,			\
-    TokenEvent,			\
-    TokenEventIf,		\
-    TokenEventNot,		\
-    TokenEventIfR,		\
-    TokenEventNotR,		\
-    TokenExit,			\
-    TokenAction,		\
-    TokenActionEventEq,	\
-    TokenActionLt,		\
-    TokenActionGt,		\
-	TokenActionEq,		\
-	TokenActionNe,		\
-    TokenActionLoad,	\
-    TokenDeferred,		\
-	TokenStartState,
+    //
+    TokenEvents,        \
+    TokenVariables,     \
+    TokenVersion,       \
+    TokenName,          \
+    TokenStartup,       \
+    TokenStatemachine,  \
+    TokenState,         \
+    TokenSuperState,    \
+    TokenDefaultState,  \
+    TokenEnter,         \
+    TokenEvent,         \
+    TokenEventIf,       \
+    TokenEventNot,      \
+    TokenEventIfR,      \
+    TokenEventNotR,     \
+    TokenExit,          \
+    TokenAction,        \
+    TokenActionEventEq, \
+    TokenActionLt,      \
+    TokenActionGt,      \
+    TokenActionEq,      \
+    TokenActionNe,      \
+    TokenActionLoad,    \
+    TokenDeferred,      \
+    TokenStartState,
     /* 0x00 */ TokenLast
 };
 

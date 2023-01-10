@@ -307,7 +307,7 @@ Deferred events are saved until after the next transition.
 
 All strings in the machine definition file is copied into the stringtable. 
 
-![Stringtable](./doc/stringtable.png)
+![Stringtable](./doc/Stringtable.png)
 
 Engine references strings through their index in the stringtable. A string has a 16 bit ID and a 16 bit length field followed by the actual string.
 

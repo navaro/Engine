@@ -1,5 +1,5 @@
 
-<img align="right" width="230px" src="./doc/logo.png" alt="drawing" /> 
+<img align="right" width="230px" src="./doc/logo.png" alt="engine" /> 
 
 # Engine 
 
@@ -13,7 +13,9 @@ __Engine__ with __Tool__ was designed for use in embedded C or C++ applications.
 
 ## The Proverbial "Toaster Oven"
 You might be surprised to hear that Engine was designed for use with deeply embedded systems. To better understand how this works, let's consider a simple example, the proverbial "Toaster Oven":
-![Toaster Oven](./doc/Toaster_Oven_State_Machine.png)
+<center>
+<img align="center" width="800px" src="./doc/Toaster_Oven_State_Machine.png" alt="toaster" />
+</center>
 
 The implementation of the "Toaster Oven" in this case is fairly straightforward. The "Toaster Oven" has two events that can trigger changes in its state, "On/Off" and "Door." These events turn the oven on or off and open or close the door, depending on the current state of the toaster. The timer does not paused when the door is opened and always restart when transitioning from the *Toaster_off* to the *Toaster_on* state.
 
@@ -157,7 +159,7 @@ Control menu:
 
 -----
 
-> :bulb: "toater.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
+> :bulb: "toaster.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
 
 _Engine_ provides extensive logging for debugging state machines. As shown in the menu above, the log level is set to ALL. So lets dispatch a few commands and look at the output. Type "tdd" in the console and press enter. This will turn the toaster on (t) and open the door (d) and close the door again (d). 
 
@@ -237,7 +239,7 @@ Additional logging output shows the different registers implemented that can be 
 
 The example below features a small OLED display used in a real-world application, a battery-powered Wi-Fi toaster with a three-button capacitive touch input. The video demonstrates the display and how to change the timer on the toaster.
 
- <center>
+<center>
 <img width="420px" src="./doc/toaster_ui.gif" alt="drawing" />
 </center>
 
@@ -581,7 +583,7 @@ The C action prototype looks like this:
 ```c
 int32_t action_part_action (PENGINE_T instance, uint32_t parm, uint32_t flags) ; 
 ```
-The _instance_ argument is the instance of the engine, or state machine this action is called from. It can be used with the engine API defined in"engine,h".
+The _instance_ argument is the instance of the engine, or state machine this action is called from. It can be used with the engine API defined in"engine.h".
 
 The _parm_ argument is passed from the statemhine and should be interpreted according to the flags.
 

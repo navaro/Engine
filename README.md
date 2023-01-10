@@ -13,9 +13,9 @@ __Engine__ with __Tool__ was designed for use in embedded C or C++ applications.
 
 ## The Proverbial "Toaster Oven"
 You might be surprised to hear that Engine was designed for use with deeply embedded systems. To better understand how this works, let's consider a simple example, the proverbial "Toaster Oven":
-<center>
-<img align="center" width="800px" src="./doc/Toaster_Oven_State_Machine.png" alt="toaster" />
-</center>
+<p align="center">
+<img align="center" width="740px" src="./doc/Toaster_Oven_State_Machine.png" alt="toaster" />
+</p>
 
 The implementation of the "Toaster Oven" in this case is fairly straightforward. The "Toaster Oven" has two events that can trigger changes in its state, "On/Off" and "Door." These events turn the oven on or off and open or close the door, depending on the current state of the toaster. The timer does not paused when the door is opened and always restart when transitioning from the *Toaster_off* to the *Toaster_on* state.
 
@@ -239,9 +239,9 @@ Additional logging output shows the different registers implemented that can be 
 
 The example below features a small OLED display used in a real-world application, a battery-powered Wi-Fi toaster with a three-button capacitive touch input. The video demonstrates the display and how to change the timer on the toaster.
 
-<center>
+<p align="center">
 <img width="420px" src="./doc/toaster_ui.gif" alt="drawing" />
-</center>
+</p>
 
 > :wink: I mean, I'm pretty sure there's no actual battery-powered Wi-Fi toaster out there in the world... or at least, I hope not. That would be way too much technology for a humble toaster. This was just an excuse to show off the awesomeness of Engine!
 

@@ -9,7 +9,6 @@ SRCS := \
 			src/parts/console.c              \
 			src/parts/engine.c               \
 			src/parts/parts.c                \
-			src/parts/scommon.c              \
 			src/tool/lex.c                   \
 			src/tool/machine.c               \
 			src/tool/collection.c            \

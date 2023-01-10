@@ -298,7 +298,7 @@ The following bits depict how the event bits are interpreted for an internal tra
 |Bit_30:28|How the comparator is evaluated to determin if the action should be executed:<br/>1 - If event register equal to the comparator. <br/>2 - If the comparator less than the accumulator.<br/>3 - If the comparator greater than the accumulator.<br/>4 - If the comparator is equal to the accumulator.<br/>5 - If the comparator is not equal to the accumulator.<br/>6 - Will load the result of the action into the variable in the comparator.|
 |Bit_27|If set, this will terminate the evaluation of the event for further actions.|
 |Bit_26:16|Event id to identify if the action that follow in the next 32 bits will be executed.|
-|Bit_15:0|Comparator to determine of the action should be executed. This could be a constant ot a variable|
+|Bit_15:0|Comparator to determine of the action should be executed. This could be a constant or a variable|
 
 ## Deferred Events
 Deferred events are saved until after the next transition.
@@ -306,7 +306,7 @@ Deferred events are saved until after the next transition.
 ![Deferred Event](./doc/deferred.svg)
 |Bits|Description|
 |---|---|
-|Bit_26:16|Event id to identify if the transition to the next state should occur.|
+|Bit_26:16|Event id for events that should be deferred.|
 
 ## The String Table
 

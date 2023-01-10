@@ -427,14 +427,14 @@ state <name> {
 
 Declarations inside a state, such as events, actions, etc., can be placed in any order and may be mixed together. However, they will be evaluated in the order in which they were declared.
 
-After transitioning to a state, the entry actions will be executed starting with the superstate and progressing down to the current state
+After transitioning to a state, the entry actions will be executed starting with the least common ancestor (LCA) superstate and progressing down to the current state
 
 If an event is dispatched, the following actions will be taken in the following order:
 1. Deferred events will be saved for later processing. If the dispatched event was deferred, the event processing will be terminated.
-2. Actions associated with internal transitions (if defined) will be executed based on a guard, starting with the current state and progressing up to the top-most superstate. It is possible for zero or more actions to be executed for a single event. If the termination flag is set, the evaluation of the event for further actions in the current state and superstates will be terminated after the action has been executed.
-3. Finally, the evaluation process for potential transitions will begin at the current state and progress up to the superstate. An event with a guard is able to trigger a transition. If the resulting transition leads to the IGNORE state, the evaluation of the event for transitions will end and no actual transition will take place.
+2. Actions associated with internal transitions, if defined for the event, will be executed based on a guard. THis will start with the current state and progressing up to the top-most superstate. It is possible for zero or more actions to be executed for a single event. If the termination flag is set, the evaluation of the event for further actions in the current state and superstates will be terminated after the action has been executed.
+3. Finally, the evaluation process for potential transitions will begin at the current state and progress up to the superstate. An event with a guard is able to trigger a transition. If the resulting transition leads to the IGNORE state, the evaluation of the event for transitions will end and no transition will take place.
 
-If a transition is triggered, exit actions will be executed starting with the current state and progressing up to the superstate.
+If a transition is triggered, exit actions will be executed starting with the current state and progressing up to the LCA superstate.
 
 #### Parameters
 

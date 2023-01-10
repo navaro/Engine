@@ -13,15 +13,15 @@ __Engine__ with __Tool__ was designed for use in embedded C or C++ applications.
 
 ## The Proverbial "Toaster Oven"
 You might be surprised to hear that Engine was designed for use with deeply embedded systems. To better understand how this works, let's consider a simple example, the proverbial "Toaster Oven":
-<center>
-<img align="center" width="800px" src="./doc/Toaster_Oven_State_Machine.png" alt="toaster" />
-</center>
+<p align="center">
+<img align="center" width="740px" src="./doc/Toaster_Oven_State_Machine.png" alt="toaster" />
+</p>
 
 The implementation of the "Toaster Oven" in this case is fairly straightforward. The "Toaster Oven" has two events that can trigger changes in its state, "On/Off" and "Door." These events turn the oven on or off and open or close the door, depending on the current state of the toaster. The timer does not paused when the door is opened and always restart when transitioning from the *Toaster_off* to the *Toaster_on* state.
 
 The "toaster part" includes two actions, _toaster_lamp_ and _toaster_heater_, which are written in C. For this simple demonstration, these functions simply print messages indicating that the toaster heater or lamp was turned on or off. In a real embedded application, the actual work would be performed here. With the "toaster part" implemented, we can fully define the behavior of the "Toaster Oven" using only _Engine Machine Language_ code.
 
-With a syntax similar to C, C++, or most other programming languages, those with programming experience should have no difficulty reading the toaster's implementation in _Engine Machine Language_. There are only a few key words, like _enter_, _exit_ and _action_ which calls actions/functions with ab optional parameter. The key word _event_ will initiate a transition to the next state for the specific event. But let's look at the implementation of the "Toaster Oven" before we continue.
+With a syntax similar to C, C++, or most other programming languages, those with programming experience should have no difficulty reading the toaster's implementation in _Engine Machine Language_. There are only a few key words, like _enter_, _exit_ and _action_ which calls actions/functions with an optional parameter. The key word _event_ will initiate a transition to the next state for the specific event. But let's look at the implementation of the "Toaster Oven" before we continue.
 
 -----
 
@@ -125,13 +125,13 @@ statemachine Toaster_oven {
 -----
 
 
-The code snippet above doesn't include the _Toaster_controller_ state machine, which implements a controller interface for the toaster. This interface generates the *_evt_OnOff* and *_evt_Door* events and allows you to change the toaster's settings such as the timer duration. It displays a menu for these options and prints out the current settings of the toaster. You can find the complete _Engine Machine Language_ code for the "Toaster Oven" example in the [toaster.e](./test/toaster.e) file.
+The code snippet above doesn't include the _Toaster_controller_ state machine which implements a controller interface for the toaster. This interface generates the *_evt_OnOff* and *_evt_Door* events and allows you to change the toaster's settings such as the timer duration. It displays a menu for these options and prints out the current settings of the toaster. You can find the complete _Engine Machine Language_ code for the "Toaster Oven" example in the [toaster.e](./test/toaster.e) file.
 
 ## Test Driving Engine
 
 First, _Engine_ with _Tool_ must be compiled from the sources in the repository. In the root of the repository there is a Makefile to build the project. There is also an Eclipse project you can use if you want to run or debug the code in an IDE.
 
-> :bulb: The Makefile uses "engine.ld" which is a linker script extending the default linker script of the compiler so if anything other then GCC is used, engine.ld file will need to be ported first. 
+> :bulb: The Makefile uses "engine.ld" which is a linker script extending the default linker script of the compiler so if anything other then GCC is used, "engine.ld" file will need to be ported first. 
 
 After compiling the project, you can run the "Toaster Oven" machine from the command line using "engine" (or engine.exe if you compile on Windows). Use the --help option to display the command line syntax. When you start the "toaster.e" machine, you will be presented with a menu.
 
@@ -239,9 +239,9 @@ Additional logging output shows the different registers implemented that can be 
 
 The example below features a small OLED display used in a real-world application, a battery-powered Wi-Fi toaster with a three-button capacitive touch input. The video demonstrates the display and how to change the timer on the toaster.
 
-<center>
+<p align="center">
 <img width="420px" src="./doc/toaster_ui.gif" alt="drawing" />
-</center>
+</p>
 
 > :wink: I mean, I'm pretty sure there's no actual battery-powered Wi-Fi toaster out there in the world... or at least, I hope not. That would be way too much technology for a humble toaster. This was just an excuse to show off the awesomeness of Engine!
 
@@ -307,7 +307,7 @@ Deferred events are saved until after the next transition.
 
 All strings in the machine definition file is copied into the stringtable. 
 
-![Stringtable](./doc/stringtable.png)
+![Stringtable](./doc/Stringtable.png)
 
 Engine references strings through their index in the stringtable. A string has a 16 bit ID and a 16 bit length field followed by the actual string.
 

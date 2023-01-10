@@ -133,6 +133,11 @@ First, _Engine_ with _Tool_ must be compiled from the sources in the repository.
 
 > :bulb: The Makefile uses "engine.ld" which is a linker script extending the default linker script of the compiler so if anything other then GCC is used, "engine.ld" file will need to be ported first. 
 
+To compile and run the project in a codespace, just use the following commands:
+```
+make
+./build/engine ./test/toaster.e
+```
 After compiling the project, you can run the "Toaster Oven" machine from the command line using "engine" (or engine.exe if you compile on Windows). Use the --help option to display the command line syntax. When you start the "toaster.e" machine, you will be presented with a menu.
 
 -----

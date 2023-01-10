@@ -21,17 +21,6 @@
     SOFTWARE.
  */
 
-
-
-/**
- * @file
- * @brief
- * @details
- * @addtogroup
- * @details
- * @{
- */
-
 #include "../port/engine_config.h"
 #if CFG_USE_ENGINE_ENGINE
 

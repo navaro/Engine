@@ -22,23 +22,6 @@
  */
 
 
-
-/** 
-* @mainpage \ref navaro
-* @defgroup Navaro Embedded Software
-*
-* @authors Natie van Rooyen
-* 
-* */
-
-
-/**
- * @file    actions.h
- * @brief   Actions exported to the stae machine.
- * @details Implements actions exported to the staemachine.
- *
- */
-
 #ifndef __PARTS_H__
 #define __PARTS_H__
 

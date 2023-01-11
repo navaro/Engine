@@ -2,23 +2,23 @@
     Copyright (C) 2015-2023, Navaro, All Rights Reserved
     SPDX-License-Identifier: MIT
 
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-	The above copyright notice and this permission notice shall be included in all
-	copies or substantial portions of the Software.
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
 
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-	SOFTWARE.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
  */
 
 #include <string.h>
@@ -26,31 +26,31 @@
 
 #pragma GCC diagnostic ignored  "-Wmissing-braces"
 static STRSUB_INSTANCE_T  _strsub_instance = {STRSUB_ESCAPE_TOKEN,
-												STRSUB_HANDLERS_TOKENS, {0}} ;
+                                                STRSUB_HANDLERS_TOKENS, {0}} ;
 
 
 bool
 strsub_install_handler (STRSUB_INSTANCE_T * instance, strsub_token_t token,
-		STRSUB_HANDLER_T* handler, STRSUB_LOOKUP_CB cb)
+        STRSUB_HANDLER_T* handler, STRSUB_LOOKUP_CB cb)
 {
-	if (instance == 0) instance = &_strsub_instance ;
-	if ((token >= 0) &&
-			((unsigned int)token < StrsubLast)) {
+    if (instance == 0) instance = &_strsub_instance ;
+    if ((token >= 0) &&
+            ((unsigned int)token < StrsubLast)) {
 
-		handler->cb = cb ;
-		handler->next = instance->handlers[token] ;
-		instance->handlers[token] = handler ;
+        handler->cb = cb ;
+        handler->next = instance->handlers[token] ;
+        instance->handlers[token] = handler ;
 
-		return true ;
-	}
+        return true ;
+    }
 
-	return false ;
+    return false ;
 }
 
 
 uint32_t
 strsub_parse (STRSUB_INSTANCE_T * instance, STRSUB_REPLACE_CB cb,
-		const char * buffer, size_t len, uintptr_t arg)
+        const char * buffer, size_t len, uintptr_t arg)
 {
     const char *p, *start_of_word = buffer ;
     strsub_token_t state = StrsubDull;
@@ -59,55 +59,55 @@ strsub_parse (STRSUB_INSTANCE_T * instance, STRSUB_REPLACE_CB cb,
     int c;
     uint32_t i  ;
 
-	if (instance == 0) instance = &_strsub_instance ; /* default instance */
+    if (instance == 0) instance = &_strsub_instance ; /* default instance */
 
     for (p = buffer;
-    		res >= 0 && *p != '\0' && ((unsigned int)(p - buffer) < len) ;
-    		p++) {
+            res >= 0 && *p != '\0' && ((unsigned int)(p - buffer) < len) ;
+            p++) {
         c = (unsigned char) *p;
         switch (state) {
         case StrsubDull:
 
-        	if (instance->escape && (c == instance->escape)) {
-        		state = StrsubEsc ;
-        		continue ;
+            if (instance->escape && (c == instance->escape)) {
+                state = StrsubEsc ;
+                continue ;
 
-        	} else {
-				for (i= 0; i < StrsubLast; i++) {
-					if (
-							instance->tokens[i] &&
-							instance->handlers[i] &&
-							(c == instance->tokens[i][0])
-						) {
-						/* open token found */
-						state = i ;
-						start_of_word = p + 1;
-						break ;
+            } else {
+                for (i= 0; i < StrsubLast; i++) {
+                    if (
+                            instance->tokens[i] &&
+                            instance->handlers[i] &&
+                            (c == instance->tokens[i][0])
+                        ) {
+                        /* open token found */
+                        state = i ;
+                        start_of_word = p + 1;
+                        break ;
 
-					}
+                    }
 
-				}
+                }
 
-				if (state > StrsubDull) {
-					continue ;
-				}
-        	}
+                if (state > StrsubDull) {
+                    continue ;
+                }
+            }
 
-        	/* emit one char at a time */
-        	if ((res = cb (p, 1, offset, arg)) > 0 ){
-        		offset += res ;
+            /* emit one char at a time */
+            if ((res = cb (p, 1, offset, arg)) > 0 ){
+                offset += res ;
 
-        	}
+            }
             break;
 
         case StrsubEsc:
 
-        	/* emit the escaped char */
-           	if ((res = cb (p, 1, offset, arg)) > 0 ){
-            		offset += res ;
+            /* emit the escaped char */
+            if ((res = cb (p, 1, offset, arg)) > 0 ){
+                    offset += res ;
             }
-        	state = StrsubDull ;
-        	break ;
+            state = StrsubDull ;
+            break ;
 
         case StrsubToken1:
         case StrsubToken2:
@@ -115,48 +115,48 @@ strsub_parse (STRSUB_INSTANCE_T * instance, STRSUB_REPLACE_CB cb,
 
             if (c == instance->tokens[state][1]) {
 
-            	/* closing token found */
-             	STRSUB_HANDLER_T* start ;
-          		for ( start = instance->handlers[state] ;
-          				(start!=0)
-          					; ) {
+                /* closing token found */
+                STRSUB_HANDLER_T* start ;
+                for ( start = instance->handlers[state] ;
+                        (start!=0)
+                            ; ) {
 
-          				if ((res = start->cb (cb, start_of_word,
-          								p - start_of_word, offset, arg)) >= 0) {
-          					/* handler send replacement text to cb function. Advance
-          					   the read pointer past the closing delimiter token
-          					   and continue */
-          					offset += res ;
-          					break ;
+                        if ((res = start->cb (cb, start_of_word,
+                                        p - start_of_word, offset, arg)) >= 0) {
+                            /* handler send replacement text to cb function. Advance
+                               the read pointer past the closing delimiter token
+                               and continue */
+                            offset += res ;
+                            break ;
 
-          				}
-          				start = start->next ;
+                        }
+                        start = start->next ;
 
-          			}
-          			if (!start) {
-          				/* No handler found: leave as is including tokens */
-          				res = cb (start_of_word-1, p - start_of_word + 2, offset, arg) ;
-          				if (res > 0) {
-          					offset += res ;
-          				}
+                    }
+                    if (!start) {
+                        /* No handler found: leave as is including tokens */
+                        res = cb (start_of_word-1, p - start_of_word + 2, offset, arg) ;
+                        if (res > 0) {
+                            offset += res ;
+                        }
 
-          			}
+                    }
                     state = StrsubDull;
 
             }
             continue;
 
         default:
-        	state = StrsubDull;
+            state = StrsubDull;
             continue ;
 
         }
 
     }
 
-    if (res > 0) {
-    	/* add a terminating zero */
-       	res = cb ("\0", 1, offset, arg) ;
+    if (res >= 0) {
+        /* add a terminating zero */
+        res = cb ("\0", 1, offset, arg) ;
 
     }
 
@@ -166,65 +166,64 @@ strsub_parse (STRSUB_INSTANCE_T * instance, STRSUB_REPLACE_CB cb,
 /* Following is an implementation of the strsub module to replace delimited strings. */
 
 typedef struct STRSUB_TO_CB_S {
-	char * 		buffer ;
-	uint32_t 	len ;
+    char *      buffer ;
+    uint32_t    len ;
 } STRSUB_TO_CB_T ;
 
 static int32_t
 strsub_cb(const char * str, uint32_t len, uint32_t offset, uintptr_t arg)
 {
-	STRSUB_TO_CB_T * parg = (STRSUB_TO_CB_T*)arg ;
+    STRSUB_TO_CB_T * parg = (STRSUB_TO_CB_T*)arg ;
 
-	if (offset >= parg->len - 1) {
-		return -1 ;
+    if (offset >= parg->len - 1) {
+        return -1 ;
 
-	}
-	if (len + offset >= parg->len - 1) {
-		len = parg->len - offset - 1;
+    }
+    if (len + offset >= parg->len - 1) {
+        len = parg->len - offset - 1;
 
-	}
-	if (parg->buffer) {
-		memcpy (&(parg->buffer[offset]), str, len) ;
+    }
+    if (parg->buffer) {
+        memcpy (&(parg->buffer[offset]), str, len) ;
 
-	}
-	return len ;
+    }
+    return len ;
 }
 
 uint32_t
 strsub_parse_get_dst_length (STRSUB_INSTANCE_T * instance,
-								const char * str, uint32_t len)
+                                const char * str, uint32_t len)
 {
-	STRSUB_TO_CB_T arg = {0};
-	arg.len = ~0 ;
+    STRSUB_TO_CB_T arg = {0};
+    arg.len = ~0 ;
 
-	if (str == 0) return 0 ;
-	if (!len) len = strlen(str) ;
+    if (str == 0) return 0 ;
+    if (!len) len = strlen(str) ;
 
-	/* NULL buffer will get the length only */
-	int32_t dstlen = strsub_parse (instance, strsub_cb, str, len, (uintptr_t)&arg) ;
-	if (dstlen < 0) {
-		return 0 ;
+    /* NULL buffer will get the length only */
+    int32_t dstlen = strsub_parse (instance, strsub_cb, str, len, (uintptr_t)&arg) ;
+    if (dstlen < 0) {
+        return 0 ;
 
-	}
+    }
 
-	return dstlen + 1 ;
+    return dstlen + 1 ;
 
 }
 
 uint32_t
 strsub_parse_string_to (STRSUB_INSTANCE_T * instance, const char * str,
-						uint32_t len, char* dst, uint32_t dst_len)
+                        uint32_t len, char* dst, uint32_t dst_len)
 {
-	STRSUB_TO_CB_T arg = {0} ;
-	arg.buffer = dst ;
-	arg.len = dst_len ;
-	arg.buffer[0] = '\0' ;
+    STRSUB_TO_CB_T arg = {0} ;
+    arg.buffer = dst ;
+    arg.len = dst_len ;
+    arg.buffer[0] = '\0' ;
 
-	if (str == 0) return 0 ;
-	if (!len) len = strlen(str) ;
+    if (str == 0) return 0 ;
+    if (!len) len = strlen(str) ;
 
-	uint32_t offset = strsub_parse (instance, strsub_cb, str, len, (uintptr_t)&arg) ;
+    uint32_t offset = strsub_parse (instance, strsub_cb, str, len, (uintptr_t)&arg) ;
 
-	return offset ;
+    return offset ;
 }
-

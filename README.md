@@ -129,11 +129,16 @@ The code snippet above doesn't include the _Toaster_controller_ state machine wh
 
 ## Test Driving Engine
 
-First, _Engine_ with _Tool_ must be compiled from the sources in the repository. In the root of the repository there is a Makefile to build the project. There is also an Eclipse project you can use if you want to run or debug the code in an IDE.
+First, _Engine_ with _Tool_ must be compiled from the sources in the repository. To compile and run the project in a codespace, just start a codespace from the repository using the ``` <> code ``` button in the code view of the repository. When the codeview is open in the browser, use the following commands in the terminal opened in the browser to compile and run the project:
+```
+make
+./build/engine ./test/toaster.e
+```
+> :bulb: Use the --help option to display the command line syntax: ``` ./build/engine  --help ``` 
 
-> :bulb: The Makefile uses "engine.ld" which is a linker script extending the default linker script of the compiler so if anything other then GCC is used, "engine.ld" file will need to be ported first. 
+> :bulb: "toaster.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
 
-After compiling the project, you can run the "Toaster Oven" machine from the command line using "engine" (or engine.exe if you compile on Windows). Use the --help option to display the command line syntax. When you start the "toaster.e" machine, you will be presented with a menu.
+When you start the "toaster.e" machine, you will be presented with a menu.
 
 -----
 
@@ -159,9 +164,7 @@ Control menu:
 
 -----
 
-> :bulb: "toaster.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
-
-_Engine_ provides extensive logging for debugging state machines. As shown in the menu above, the log level is set to ALL. So lets dispatch a few commands and look at the output. Type "tdd" in the console and press enter. This will turn the toaster on (t) and open the door (d) and close the door again (d). 
+_Engine_ provides extensive logging for debugging state machines. As shown in the menu above, the log level is set to ALL. So lets dispatch a few commands and look at the output. Type "tdd" in the console and press enter. This will turn the toaster on (t) and open the door (d) and close the door again (d). The debug log below should be generated:
 
 > :bulb: In the following debug log, 0x700 is the "Door" event and 0x701 is the "OnOff" event.
 
@@ -293,7 +296,7 @@ The following bits depict how the event bits are interpreted for an internal tra
 |Bit_30:28|How the comparator is evaluated to determin if the action should be executed:<br/>1 - If event register equal to the comparator. <br/>2 - If the comparator less than the accumulator.<br/>3 - If the comparator greater than the accumulator.<br/>4 - If the comparator is equal to the accumulator.<br/>5 - If the comparator is not equal to the accumulator.<br/>6 - Will load the result of the action into the variable in the comparator.|
 |Bit_27|If set, this will terminate the evaluation of the event for further actions.|
 |Bit_26:16|Event id to identify if the action that follow in the next 32 bits will be executed.|
-|Bit_15:0|Comparator to determine of the action should be executed. This could be a constant ot a variable|
+|Bit_15:0|Comparator to determine of the action should be executed. This could be a constant or a variable|
 
 ## Deferred Events
 Deferred events are saved until after the next transition.
@@ -301,7 +304,7 @@ Deferred events are saved until after the next transition.
 ![Deferred Event](./doc/deferred.svg)
 |Bits|Description|
 |---|---|
-|Bit_26:16|Event id to identify if the transition to the next state should occur.|
+|Bit_26:16|Event id for events that should be deferred.|
 
 ## The String Table
 
@@ -422,14 +425,14 @@ state <name> {
 
 Declarations inside a state, such as events, actions, etc., can be placed in any order and may be mixed together. However, they will be evaluated in the order in which they were declared.
 
-After transitioning to a state, the entry actions will be executed starting with the superstate and progressing down to the current state
+After transitioning to a state, the entry actions will be executed starting with the least common ancestor (LCA) superstate and progressing down to the current state
 
 If an event is dispatched, the following actions will be taken in the following order:
 1. Deferred events will be saved for later processing. If the dispatched event was deferred, the event processing will be terminated.
-2. Actions associated with internal transitions (if defined) will be executed based on a guard, starting with the current state and progressing up to the top-most superstate. It is possible for zero or more actions to be executed for a single event. If the termination flag is set, the evaluation of the event for further actions in the current state and superstates will be terminated after the action has been executed.
-3. Finally, the evaluation process for potential transitions will begin at the current state and progress up to the superstate. An event with a guard is able to trigger a transition. If the resulting transition leads to the IGNORE state, the evaluation of the event for transitions will end and no actual transition will take place.
+2. Actions associated with internal transitions, if defined for the event, will be executed based on a guard. THis will start with the current state and progressing up to the top-most superstate. It is possible for zero or more actions to be executed for a single event. If the termination flag is set, the evaluation of the event for further actions in the current state and superstates will be terminated after the action has been executed.
+3. Finally, the evaluation process for potential transitions will begin at the current state and progress up to the superstate. An event with a guard is able to trigger a transition. If the resulting transition leads to the IGNORE state, the evaluation of the event for transitions will end and no transition will take place.
 
-If a transition is triggered, exit actions will be executed starting with the current state and progressing up to the superstate.
+If a transition is triggered, exit actions will be executed starting with the current state and progressing up to the LCA superstate.
 
 #### Parameters
 

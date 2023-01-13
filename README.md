@@ -136,7 +136,6 @@ make
 ```
 > :bulb: Use the --help option to display the command line syntax: ``` ./build/engine  --help ``` 
 
-> :bulb: "toaster.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
 
 When you start the "toaster.e" machine, you will be presented with a menu.
 
@@ -237,6 +236,7 @@ According to the log, the toaster turns on and the door opens shortly thereafter
 
 Additional logging output shows the different registers implemented that can be used by guards for conditional execution of actions or transitions. Registers, as well as variables and indexed variables, are referenced using square brackets for example [a] for the "accumulator", [r] for the "register" and [e] for the "event register". But more about this later.
 
+> :bulb: "toaster.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
 
 ## A Real World Example
 

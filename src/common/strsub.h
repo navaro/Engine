@@ -34,8 +34,6 @@
  *          string. One or more handlers can be installed for a pair of delimiter
  *          tokens.
  *
- *
- *
  * @addtogroup
  * @{
  */

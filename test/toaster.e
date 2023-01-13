@@ -137,6 +137,7 @@ statemachine Toaster_controller {
             action          (_evt_WriteMenu, console_writeln, "    \\[d] Door Open/Close.")
             action          (_evt_WriteMenu, console_writeln, "    \\[s] Settings.")
             action          (_evt_WriteMenu, console_writeln, "    \\[h] Help.")
+            action          (_evt_WriteMenu, console_writeln, "    \\[q] Quit.")
 
             action          (_console_char, a_load, 0)
             action_eq_e     (_console_char, 't', state_event, _evt_OnOff)
@@ -164,6 +165,7 @@ statemachine Toaster_controller {
             action          (_evt_WriteMenu, console_writeln, "    \\[7] Output ENABLE/DISABLE.")
             action          (_evt_WriteMenu, console_writeln, "    \\[8] Start tress test.")
             action          (_evt_WriteMenu, console_writeln, "    \\[x] Exit setting menu.")
+            action          (_evt_WriteMenu, console_writeln, "    \\[q] Quit.")
 
             action_ld       (_console_char, [a], get, [Timer])
             action_eq_e     (_console_char, '1', a_load, [timer.short])

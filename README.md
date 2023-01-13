@@ -129,16 +129,16 @@ The code snippet above doesn't include the _Toaster_controller_ state machine wh
 
 ## Test Driving Engine
 
-First, _Engine_ with _Tool_ must be compiled from the sources in the repository. In the root of the repository there is a Makefile to build the project. There is also an Eclipse project you can use if you want to run or debug the code in an IDE.
-
-> :bulb: The Makefile uses "engine.ld" which is a linker script extending the default linker script of the compiler so if anything other then GCC is used, "engine.ld" file will need to be ported first. 
-
-To compile and run the project in a codespace, just use the following commands:
+First, _Engine_ with _Tool_ must be compiled from the sources in the repository. To compile and run the project in a codespace, just start a codespace from the repository using the ``` <> code ``` button in the code view of the repository. When the codeview is open in the browser, use the following commands in the terminal opened in the browser to compile and run the project:
 ```
 make
 ./build/engine ./test/toaster.e
 ```
-After compiling the project, you can run the "Toaster Oven" machine from the command line using "engine" (or engine.exe if you compile on Windows). Use the --help option to display the command line syntax. When you start the "toaster.e" machine, you will be presented with a menu.
+> :bulb: Use the --help option to display the command line syntax: ``` ./build/engine  --help ``` 
+
+> :bulb: "toaster.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
+
+When you start the "toaster.e" machine, you will be presented with a menu.
 
 -----
 
@@ -164,9 +164,7 @@ Control menu:
 
 -----
 
-> :bulb: "toaster.e" requires a configuration file named "toaster.cfg" to be located in the same directory. Alternatively, the location of the configuration file can be specified on the command line, if it has a different name.
-
-_Engine_ provides extensive logging for debugging state machines. As shown in the menu above, the log level is set to ALL. So lets dispatch a few commands and look at the output. Type "tdd" in the console and press enter. This will turn the toaster on (t) and open the door (d) and close the door again (d). 
+_Engine_ provides extensive logging for debugging state machines. As shown in the menu above, the log level is set to ALL. So lets dispatch a few commands and look at the output. Type "tdd" in the console and press enter. This will turn the toaster on (t) and open the door (d) and close the door again (d). The debug log below should be generated:
 
 > :bulb: In the following debug log, 0x700 is the "Door" event and 0x701 is the "OnOff" event.
 

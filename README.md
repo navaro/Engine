@@ -643,11 +643,11 @@ Engine can be useful for separating the functionality or top-level state machine
 
 The ability to use different state machines in a program without the need for recompiling the source code can have benefits for embedded systems, such as the ability to run unit tests more easily. Another benefit is the ability to run different variations of the program by choosing a different state machine as a runtime option.
 
-The way the compiled code is executed, it is likely to be just as fast as native C. The straightforward syntax of Engine Machine Language makes it ideal for development using any text editor. With an editor that supports folding and unfolding of curly brackets, Engine may even be more convenient to use than many visual design tool. Another advantage of this is that there are no code generators involved and results in a greater level of control and flexibility over the final product.
+The way the compiled code is executed, it is likely to be just as fast as native C. The straightforward syntax of _Engine Machine Language_ makes it ideal for development using a text editor. With an editor that supports folding and unfolding of curly brackets, Engine may even be more convenient to use than many visual design tools. Another advantage of this is that there are no code generators involved, and this usually results in a greater level of control and flexibility over the final product.
 
 # Acknowledgements
 
-The idea for the project came from Pico C. The lexer of Pico C was used with a few modifications and the parser changed to parse Engine Machine Language syntax. Pico C (https://gitlab.com/zsaleeba/picoc) is published under the "New BSD License". http://www.opensource.org/licenses/bsd-license.php
+The idea for the project came from Pico C. The lexer of Pico C was used with a few modifications and the parser changed to parse _Engine Machine Language_ syntax. Pico C (https://gitlab.com/zsaleeba/picoc) is published under the "New BSD License". http://www.opensource.org/licenses/bsd-license.php
 
 To draw the bitfields in the "Engine Byte Code" section I used the
 wavedrom bitfield library, very easy to use: https://github.com/wavedrom/bitfield. After installing you can just use a command like this to create the bitfield:

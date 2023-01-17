@@ -643,7 +643,7 @@ Engine can be useful for separating the functionality or top-level state machine
 
 The ability to use different state machines in a program without the need for recompiling the source code can have benefits for embedded systems, such as the ability to run unit tests more easily. Another benefit is the ability to run different variations of the program by choosing a different state machine as a runtime option.
 
-But whatever way you use it, I hope you have fun with Engine, because I sure did!
+Additionally, the way the compiled code is executed, it is likely to be just as fast as native C. The straightforward syntax of Engine Machine Language makes it ideal for development using any text editor. With an editor that supports folding and unfolding of curly brackets, Engine may even be more convenient to use than any visual design tool.
 
 # Acknowledgements
 

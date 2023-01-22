@@ -129,7 +129,7 @@ The code snippet above doesn't include the _Toaster_controller_ state machine wh
 
 ## Test Driving Engine
 
-First, _Engine_ with _Tool_ must be compiled from the sources in the repository. To compile and run the project in a codespace, just start a codespace from the repository using the ``` <> code ``` button in the code view of the repository. When the codespace is open in the browser, use the following commands in the terminal that opened in the browser to compile and run the project (if the terminal is not open use ctrl + ` to open the terminal):
+First, _Engine_ with _Tool_ must be compiled from the sources in the repository. To compile and run the project in a codespace, just start a codespace from the repository using the ``` <> code ``` button in the code view of the repository. When the codespace is open in the browser, use the following commands in the terminal that opened in the browser to compile and run the project (if the terminal is not open use ```ctrl + ` ``` to open the terminal):
 ```
 make
 ./build/engine ./test/toaster.e

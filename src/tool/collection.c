@@ -39,7 +39,7 @@ typedef char*           (*COLLECTION_VALUE_T)(struct collection * /* coll */, st
 
 
 struct collection_keyval {
-    COLLECTION_KEYVAL_ALLOC_T       set ;
+    COLLECTION_KEYVAL_ALLOC_T       alloc ;
     COLLECTION_KEYVAL_FREE_T        free ;
     COLLECTION_KEY_HASH_T           hash ;
     COLLECTION_KEY_CMP_T            cmp ;
@@ -89,7 +89,6 @@ collection_str_keyval_free(struct collection * coll, struct clist *np)
 }
 
 
-/* hash: form hash value for string */
 unsigned int
 collection_str_key_hash(struct collection * coll, const char *s, unsigned int keysize)
 {
@@ -122,14 +121,8 @@ collection_str_key(struct collection * coll, struct clist *np)
     return (const char*)np->keyval[0] ;
 }
 
-const char*
-collection_key(struct collection * coll, struct clist *np)
-{
-    return (const char*)&np->keyval[0] ;
-}
-
 char*
-collection_value(struct collection * coll, struct clist *np)
+collection_str_value(struct collection * coll, struct clist *np)
 {
     return (char*)&np->keyval[1] ;
 }
@@ -158,7 +151,6 @@ dict_remove (struct collection * coll, const char *s, unsigned int keysize) {
 
 }
 
-/* dict_lookup: look for s in hashtab */
 static struct clist *
 dict_lookup (struct collection * coll, const char *key, unsigned int keysize)
 {
@@ -181,7 +173,7 @@ collection_init (collectionheap heap, unsigned int hashsize)
             &collection_str_key_hash,
             &collection_str_key_cmp,
             &collection_str_key,
-            &collection_value
+            &collection_str_value
 
     };
 
@@ -207,7 +199,7 @@ collection_install_size(struct collection * coll, const char *key,
     struct clist *np;
     unsigned hashval;
      if ((np = dict_lookup(coll, key, keysize)) == 0) { /* not found */
-        np = coll->key->set(coll, key, keysize, valuesize) ;
+        np = coll->key->alloc(coll, key, keysize, valuesize) ;
         if (np == 0) return 0;
         hashval = coll->key->hash(coll, key, keysize);
         np->next = coll->hashtab[hashval];
@@ -236,7 +228,7 @@ collection_lookup(struct collection * coll, const char *key,
     struct clist *np;
     unsigned hashval;
      if ((np = dict_lookup(coll, key, keysize)) == 0) { /* not found */
-        np = coll->key->set(coll, key, keysize, valuesize) ;
+        np = coll->key->alloc(coll, key, keysize, valuesize) ;
         if (np == 0) return 0;
         hashval = coll->key->hash(coll, key, keysize);
         np->next = coll->hashtab[hashval];

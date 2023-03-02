@@ -41,7 +41,8 @@ usage(char* comm)
         "    --verbose             Verbose output.\n"
         "    --list                Lista all Actions, Events and Constants.\n"
         "    --config              Configuration file or \"registry\" (default file.cfg).\n"
-        ,
+        "\n"
+        "example: ./build/engine ./test/toaster.e\n",
         ENGINE_VERSION_STR,
         comm);
     exit (0);

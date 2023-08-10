@@ -264,7 +264,7 @@ In the image, each state has one entry and exit action, one internal transition 
 
 The state header contains the number of events, deferred events, entry actions, exit actions and actions (internal transitions) in the state data.
 
-## Actions
+## Actions (entry & exit)
 Actions can be entry or exit actions or actions of internal transitions.
 
 ![Action](./doc/action.svg)
@@ -274,6 +274,18 @@ Param is a 16 bit integer but should be interpreted by the action according to t
 |---|---|
 |Bit_31:30| Type: <br/>0 - constant <br />1 - indexed (string index into a registry. This index must be loaded from the string table)<br/>2 - string (must be loaded from the string table)<br/>3 - variable (an identifier in square brackets. This is a 32 bit integer) |
 |Bit_29:28|Operation to perform before or after the action: <br/> 0 - nothing. <br/>1 - push (acumulator pushed and result save in accumulator)<br/>2 - pop (pop accumulator before the action)<br/>3 - save (result saved in the register)
+
+## Actions (internal)
+The following bits depict how the event bits are interpreted for an internal transition.
+
+![Internal](./doc/internal.svg)
+|Bits|Description|
+|---|---|
+|Bit_31| If set, the value in the comparator is a variable, otherwise it is a constant|
+|Bit_30:28|How the comparator is evaluated to determin if the action should be executed:<br/>1 - If event register equal to the comparator. <br/>2 - If the comparator less than the accumulator.<br/>3 - If the comparator greater than the accumulator.<br/>4 - If the comparator is equal to the accumulator.<br/>5 - If the comparator is not equal to the accumulator.<br/>6 - Will load the result of the action into the variable in the comparator.|
+|Bit_27|If set, this will terminate the evaluation of the event for further actions.|
+|Bit_26:16|Event id to identify if the action that follow in the next 32 bits will be executed.|
+|Bit_15:0|Comparator to determine of the action should be executed. This could be a constant or a variable|
 
 ## Events
 The event bits are interpreted differently for an internal transition than for an external transition. The following bits depict an external transition.
@@ -285,18 +297,6 @@ The event bits are interpreted differently for an internal transition than for a
 |Bit_30:28|Guard condition for the event to trigger a transition:<br/>1 - If accumulator set.<br/>2 - If accumulator NOT set.<br/>3 - If register is set.<br/>4 - If register NOT set.|
 |Bit_26:16|Event id to identify if the transition to the next state should occur.|
 |Bit_15:0|Next state index.|
-
-## Internal Transition
-The following bits depict how the event bits are interpreted for an internal transition.
-
-![Internal](./doc/internal.svg)
-|Bits|Description|
-|---|---|
-|Bit_31| If set, the value in the comparator is a variable, otherwise it is a constant|
-|Bit_30:28|How the comparator is evaluated to determin if the action should be executed:<br/>1 - If event register equal to the comparator. <br/>2 - If the comparator less than the accumulator.<br/>3 - If the comparator greater than the accumulator.<br/>4 - If the comparator is equal to the accumulator.<br/>5 - If the comparator is not equal to the accumulator.<br/>6 - Will load the result of the action into the variable in the comparator.|
-|Bit_27|If set, this will terminate the evaluation of the event for further actions.|
-|Bit_26:16|Event id to identify if the action that follow in the next 32 bits will be executed.|
-|Bit_15:0|Comparator to determine of the action should be executed. This could be a constant or a variable|
 
 ## Deferred Events
 Deferred events are saved until after the next transition.

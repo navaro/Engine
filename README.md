@@ -349,6 +349,18 @@ statemachine <name_1> {
 		state <state_s12> {
 		
 		}
+		
+		super <state_s12> {
+
+			state <state_s121> {
+			
+			}
+		
+			state <state_s122> {
+			
+			}
+
+		}
 	
 	}
 	

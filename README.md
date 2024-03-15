@@ -260,7 +260,7 @@ Each state machine is created in a contiguous block of memory where the state ma
  
 > :bulb: External transitions are shown with solid lines while the internal transitions are shown with dotted lines.
 
-In the image, each state has one entry and exit action, one internal transition and one external transition. State 1 also has one deferred event.
+In this example, each state has one entry and exit action, one internal transition and one external transition, but the total number of events, deferred events, entry actions, exit actions and actions (internal transitions) can be up to 255 each.
 
 The state header contains the number of events, deferred events, entry actions, exit actions and actions (internal transitions) in the state data.
 

@@ -5,11 +5,11 @@
 
 
 
-__Engine__ executes extended, hierarchical state machines with guards. A state machine is compiled from parts by parsing a machine definition file written in *Engine Machine Language* format.
+__Engine__ is designed to execute sophisticated, hierarchical state machines with guards. State machines are assembled from individual parts, parsed from a machine definition file written in Engine Machine Language.
 
-__Tool__ is the integrated compiler compiling _Engine Machine Language_ files into byte code that can be loaded and executed by *Engine*. *Tool* is fast, efficient, and lightweight making it  suitable to be linked with the application to compile *Engine Machine Language* files just in time with minimal overhead.
+__Tool__, the integrated compiler, transforms these Engine Machine Language files into byte code, ready for execution by Engine. Fast, efficient, and lightweight, Tool is perfect for just-in-time compilation, minimizing overhead and seamlessly integrating with your application.
 
-__Engine__ with __Tool__ was designed for use in embedded C or C++ applications.
+__Engine__ with __Tool__ is tailor-made for embedded C or C++ applications, providing a powerful and efficient solution for real-time state machine management, ensuring optimal performance with a nostalgic twist.
 
 ## The Proverbial "Toaster Oven"
 You might be surprised to hear that Engine was designed for use with deeply embedded systems. To better understand how this works, let's consider a simple example, the proverbial "Toaster Oven":

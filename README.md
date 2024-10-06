@@ -132,6 +132,9 @@ The code snippet above doesn't include the _Toaster_controller_ state machine wh
 First, _Engine_ with _Tool_ must be compiled from the sources in the repository. To compile and run the project in a codespace, just start a codespace from the repository using the ``` <> code ``` button in the code view of the repository. When the codespace is open in the browser, use the following commands in the terminal that opened in the browser to compile and run the project (if the terminal is not open use ```ctrl + ` ``` to open the terminal):
 ```
 make
+```
+now start the engine to run the toaster with the folloing command:
+```
 ./build/engine ./test/toaster.e
 ```
 > :bulb: Use the --help option to display the command line syntax: ``` ./build/engine  --help ``` 

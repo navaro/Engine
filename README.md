@@ -125,7 +125,7 @@ statemachine Toaster_oven {
 -----
 
 
-The code snippet above doesn't include the _Toaster_controller_ state machine which implements a controller interface for the toaster. This interface generates the *_evt_OnOff* and *_evt_Door* events and allows you to change the toaster's settings such as the timer duration. It displays a menu for these options and prints out the current settings of the toaster. You can find the complete _Engine Machine Language_ code for the "Toaster Oven" example in the [toaster.e](./test/toaster.e) file.
+The code snippet above doesn't include the _Toaster_controller_ state machine, which runs in parralel, which implements a controller interface for the toaster. This interface generates the *_evt_OnOff* and *_evt_Door* events and allows you to change the toaster's settings such as the timer duration. It displays a menu for these options and prints out the current settings of the toaster. You can find the complete _Engine Machine Language_ code for the "Toaster Oven" example in the [toaster.e](./test/toaster.e) file.
 
 ## Test Driving Engine
 

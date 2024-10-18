@@ -39,8 +39,9 @@ decl_variables {
                                will be read from the config file. */
 }
 
-/* Actions can dispatch evets into their own state machines. We 
-   declare a few events here fo use by the state machines. */
+/* Actions can dispatch evets into state machines, their own or globally
+   to all state machines. We declare a few events here fo use by the
+   state machines. */
 decl_events {
     _evt_Door
     _evt_OnOff

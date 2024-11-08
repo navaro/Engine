@@ -35,8 +35,8 @@ decl_name       "Toaster Oven"
 decl_version    2
 
 decl_variables {
-    Timer = [timer.default] /* Reload value for "off" timer when the toaster is started.
-                               The value can be read from a registry or config file. */
+    Timer = [timer.default] /* Reload value for the "off" timer when the toaster is started.
+                               The value "timer.default" is read from a registry or config file. */
 }
 
 /* Actions can dispatch evets into state machines, their own or globally

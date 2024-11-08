@@ -36,7 +36,7 @@ decl_version    2
 
 decl_variables {
     Timer = [timer.default] /* Reload value for timer. The value
-                               will be read from the config file. */
+                               will be read from a registry or config file. */
 }
 
 /* Actions can dispatch evets into state machines, their own or globally
